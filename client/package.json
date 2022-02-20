@@ -13,7 +13,7 @@
     "react-scripts": "3.4.1",
     "react-stripe-checkout": "^2.6.3"
   },
-  "proxy": "http://today-trend.herokuapp.com/api",
+  "proxy": "https://today-trend.herokuapp.com/api",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
