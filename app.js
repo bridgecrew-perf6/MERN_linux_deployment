@@ -27,7 +27,7 @@ app.use(cookieParser());
 app.use(cors());
 
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8000;
 
 app.use('/api',authRoute);
 app.use('/api',userRoute);
@@ -37,7 +37,7 @@ app.use('/api',orderRoutes);
 app.use('/api',stripeRoutes);
 
 
-if(process.env.NODE_ENV === 'production'){
+if(process.env.NODE_ENV === 'development'){
     app.use(express.static('client/build'))
 
     app.get('/*', (req, res) => {
