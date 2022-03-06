@@ -27,7 +27,7 @@ services:
     image: api-server
     container_name: api-server
     env_file: ./config.env
-    build: ./server/
+    build: ./
     ports:
       - "8000:8000"
     networks:
