@@ -1,38 +1,46 @@
 version: "3"
 services:
   reverse-proxy:
-    image: nginx
-    container_name: reverse_proxy
-    depends_on:
-        - react-app
-        - api-server
+    image: nginx:latest
     volumes:
-      - ./reverse_proxy/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/default.conf:/etc/nginx/nginx.conf
+    container_name: reverse_proxy
     ports:
       - 80:80
+    networks:
+      - shared-network
 
   react-app:
     image: react-app
     container_name: react-app
-    build: ./client/
+    build: 
+      context: client
+      dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - 3000:3000
     networks:
-      - mern-app
+      - shared-network
     volumes:
       - ./client/:/app
       - /app/node_modules
+    depends_on:
+      - api-server
 
   api-server:
     image: api-server
     container_name: api-server
     env_file: ./config.env
-    build: ./
+    build: 
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - 8000:8000
     networks:
-      - mern-app
+      - shared-network
     volumes:
       - ./:/app
       - /app/node_modules
+      
+networks:
+  shared-network:
 
